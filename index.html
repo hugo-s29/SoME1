@@ -1,6 +1,100 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title><link rel="stylesheet" href="/style.99b830b5.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Sahitya:wght@400;700&family=MonteCarlo&display=swap" rel="stylesheet"><link rel="stylesheet" href="/app.769876d2.css"></head><body> <div class="container"> <h1> A journey in the world of the Mathematics used in Computer Science. </h1> <p> When working with a computer, you have a limited amount of memory. You can't store numbers with an infinite number of digits: for example, a computer thinks that $\pi$ has only 15 digits <span class="no-brk">($3.141592653589793$)</span>. This limited amount of precision can cause some problems with arithmetic like $0.1+0.2 \neq 0.3$ </p> <img src="/intro.95db4182.png" alt="Wait! So, what is 0.1 + 0.2 ?" class="comic" id="comic-add"> <div class="large-break"></div> <p class="no-mg-bt">If you use Python, you can see:</p> <pre class="floating no-mg-tp sketched" id="python-add"><code class="language-python">>>> 0.1 + 0.2
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.99b830b5.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Sahitya:wght@400;700&family=MonteCarlo&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./app.769876d2.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        A journey in the world of the Mathematics used in Computer Science.
+      </h1>
+      <p>
+        When working with a computer, you have a limited amount of memory. You
+        can't store numbers with an infinite number of digits: for example, a
+        computer thinks that $\pi$ has only 15 digits
+        <span class="no-brk">($3.141592653589793$)</span>. This limited amount
+        of precision can cause some problems with arithmetic like $0.1+0.2 \neq
+        0.3$
+      </p>
+      <img
+        src="./intro.95db4182.png"
+        alt="Wait! So, what is 0.1 + 0.2 ?"
+        class="comic"
+        id="comic-add"
+      />
+      <div class="large-break"></div>
+      <p class="no-mg-bt">If you use Python, you can see:</p>
+      <pre
+        class="floating no-mg-tp sketched"
+        id="python-add"
+      ><code class="language-python">>>> 0.1 + 0.2
 0.30000000000000004
-</code></pre> <p> It's close, but it's not $0.3$. This isn't a problem with Python, it's a problem with every programming language that uses Floating Point arithmetic. We, as humans, have a similar problem: try to add $\frac13+\frac23$. If you use 10 digits to represent the two numbers, you have $0.3333333333 + 0.6666666666=0.9999999999$. And it's not <i>precisely</i> $1$. </p> <p> In computer graphics, there is a similar problem. You have a screen with a limited amount of pixels. </p> <img src="/screen.bcae8f2f.png" alt="screen image" id="screen"> <img src="/problem.8f2448f2.png" alt="Why is it a problem ?" class="comic" id="problem"> <p> You can't draw perfect curves, or even lines. You can only draw approximations. In fact, you can't draw a perfect line either. Mathematically, a line has a width of $0$. </p> <div class="floating sketched" id="proof"> <h3>Proof</h3> <p> We will use an equation like $y = mx + p$ whose graph is a straight line. If a line would have a width $w$, this means that, for a given $x$, we would have multiple values of $y$. More rigorously, we would have $y - w = mx + p$ and $y + w = mx + p$ with $w$, $x$, $y$, $m$ and $p$ constant. So, we would have $y - w = y + w$, so $-w = w$ which is only possible if $w = 0$. </p> </div> <div class="large-break"></div> <div class="large-break"></div> <div class="large-break"></div> <p>So, how do you draw lines on screen with discrete pixels ?</p> <p> Firstly, you need to draw points. It's easy if you use integer coordinates. Usually, the screen uses a coordinate system where the origin is the top left point. With the x-axis pointing to the right and the y-axis pointing down. This coordinate system doesn't have the same orientation as what you're used to with function graphs. </p> <img src="/graph.c2ce8345.png" alt="graph"> <p> If you want to plot points with non-integer coordinates, it's not that complex. you just round the $x$ and $y$ coordinates to the nearest integer. </p> <p>How do we implement it in code ? Here, I also used Python.</p> <pre><code class="language-python"># we will use 0 to represent black and 1 white
+</code></pre>
+      <p>
+        It's close, but it's not $0.3$. This isn't a problem with Python, it's a
+        problem with every programming language that uses Floating Point
+        arithmetic. We, as humans, have a similar problem: try to add
+        $\frac13+\frac23$. If you use 10 digits to represent the two numbers,
+        you have $0.3333333333 + 0.6666666666=0.9999999999$. And it's not
+        <i>precisely</i> $1$.
+      </p>
+      <p>
+        In computer graphics, there is a similar problem. You have a screen with
+        a limited amount of pixels.
+      </p>
+      <img src="./screen.bcae8f2f.png" alt="screen image" id="screen" />
+      <img
+        src="./problem.8f2448f2.png"
+        alt="Why is it a problem ?"
+        class="comic"
+        id="problem"
+      />
+      <p>
+        You can't draw perfect curves, or even lines. You can only draw
+        approximations. In fact, you can't draw a perfect line either.
+        Mathematically, a line has a width of $0$.
+      </p>
+      <div class="floating sketched" id="proof">
+        <h3>Proof</h3>
+        <p>
+          We will use an equation like $y = mx + p$ whose graph is a straight
+          line. If a line would have a width $w$, this means that, for a given
+          $x$, we would have multiple values of $y$. More rigorously, we would
+          have $y - w = mx + p$ and $y + w = mx + p$ with $w$, $x$, $y$, $m$ and
+          $p$ constant. So, we would have $y - w = y + w$, so $-w = w$ which is
+          only possible if $w = 0$.
+        </p>
+      </div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <p>So, how do you draw lines on screen with discrete pixels ?</p>
+      <p>
+        Firstly, you need to draw points. It's easy if you use integer
+        coordinates. Usually, the screen uses a coordinate system where the
+        origin is the top left point. With the x-axis pointing to the right and
+        the y-axis pointing down. This coordinate system doesn't have the same
+        orientation as what you're used to with function graphs.
+      </p>
+      <img src="./graph.c2ce8345.png" alt="graph" />
+      <p>
+        If you want to plot points with non-integer coordinates, it's not that
+        complex. you just round the $x$ and $y$ coordinates to the nearest
+        integer.
+      </p>
+      <p>How do we implement it in code ? Here, I also used Python.</p>
+      <pre><code class="language-python"># we will use 0 to represent black and 1 white
 screen = [ [ 1 for x in range(height) ] for y in range(width) ]
 
 def point(x, y):
@@ -17,7 +111,79 @@ def point(x, y):
       y = round(y)
 
     # so, x and y are now both integers
-    screen[x][y] = 0</code></pre> <p> To plot points, it's simple. Here is an interactive demo, you can drag the red dot. </p> <div class="animation sketched2"> <iframe src="point.html" frameborder="0"> </iframe></div> <p> Now, we can draw lines. A "naive" way of rendering lines is to take lots of sample points then drawing them as points on the screen. The problem is, we can sample too much which could result in lot's of unnecessary computations; or, we could sample less points but we would have a line with "holes". </p> <div class="compare"> <img src="/undersampling.37830496.png" alt="undersampling"> <img src="/oversampling.0fff4ab3.png" alt="oversampling"> </div> <div class="large-break"></div> <div class="animation sketched2"> <iframe src="./sample.html" frameborder="0"> </iframe></div> <div class="large-break"></div> <div class="large-break"></div> <p>Okay, how do we solve this problem ?</p> <div class="compare"> <p>We could sample one point every pixel like this:</p> <img src="/samples.c9311e4e.png" alt="right sampling" class="sampling-img"> </div> <div class="large-break"></div> <div class="large-break"></div> <div class="compare"> <p>But, it wouldn't work for every line:</p> <img src="/samples2.9809ab6f.png" alt="undersampling, again" class="sampling-img"> </div> <div class="large-break"></div> <p> If you take the time to think about it, you may think this method to draw lines only work when the line has an angle less than 45° with the x-axis. Otherwise, if you step one unit on the x-axis, the line would have increased by more than one on the y-axis. In the drawing **bellow**, $\Delta y > \Delta x$. </p> <img src="/samples2-explaination.443985e5.png" alt="explanation undersampling" class="sampling-img-large"> <p> In this case, instead of sampling with the x-axis, we can use the y-axis. </p> <img src="/problem-solved.16e8899f.png" alt="problem solved !" class="comic" id="comic-solved"> <div class="large-break"></div> <div class="large-break"></div> <div class="large-break"></div> <p>How is it implemented in code ? Here is an example in Python:</p> <div class="compare"> <pre class="sketched">
+    screen[x][y] = 0</code></pre>
+      <p>
+        To plot points, it's simple. Here is an interactive demo, you can drag
+        the red dot.
+      </p>
+      <div class="animation sketched2">
+        <iframe src="point.html" frameborder="0"> </iframe>
+      </div>
+      <p>
+        Now, we can draw lines. A "naive" way of rendering lines is to take lots
+        of sample points then drawing them as points on the screen. The problem
+        is, we can sample too much which could result in lot's of unnecessary
+        computations; or, we could sample less points but we would have a line
+        with "holes".
+      </p>
+      <div class="compare">
+        <img src="./undersampling.37830496.png" alt="undersampling" />
+        <img src="./oversampling.0fff4ab3.png" alt="oversampling" />
+      </div>
+      <div class="large-break"></div>
+      <div class="animation sketched2">
+        <iframe src="./sample.html" frameborder="0"> </iframe>
+      </div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <p>Okay, how do we solve this problem ?</p>
+      <div class="compare">
+        <p>We could sample one point every pixel like this:</p>
+        <img
+          src="./samples.c9311e4e.png"
+          alt="right sampling"
+          class="sampling-img"
+        />
+      </div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <div class="compare">
+        <p>But, it wouldn't work for every line:</p>
+        <img
+          src="./samples2.9809ab6f.png"
+          alt="undersampling, again"
+          class="sampling-img"
+        />
+      </div>
+      <div class="large-break"></div>
+      <p>
+        If you take the time to think about it, you may think this method to
+        draw lines only work when the line has an angle less than 45° with the
+        x-axis. Otherwise, if you step one unit on the x-axis, the line would
+        have increased by more than one on the y-axis. In the drawing
+        **bellow**, $\Delta y > \Delta x$.
+      </p>
+      <img
+        src="./samples2-explaination.443985e5.png"
+        alt="explanation undersampling"
+        class="sampling-img-large"
+      />
+      <p>
+        In this case, instead of sampling with the x-axis, we can use the
+        y-axis.
+      </p>
+      <img
+        src="./problem-solved.16e8899f.png"
+        alt="problem solved !"
+        class="comic"
+        id="comic-solved"
+      />
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <p>How is it implemented in code ? Here is an example in Python:</p>
+      <div class="compare">
+        <pre class="sketched">
         <code class="language-python">from math import ceil
 
 def line(ax, ay, bx, by):
@@ -40,4 +206,102 @@ def line(ax, ay, bx, by):
         x = lerp(ax, bx, alpha)
         y = lerp(ay, by, alpha)
 
-        point(x, y)</code></pre> <div class="wrap-right"> <p> And so, you've discovered, on your own, Bresenham's line algorithm. Well... almost... </p> <img src="/lerp-question.de65de28.png" alt="Wait a minute, what is &quot;lerp&quot; ?" class="comic"> </div> </div> <div class="large-break"></div> <div class="large-break"></div> <p> To understand what "lerp" is, here is an example. You have a circle and it needs to move between two points. </p> <img src="/lerp-circle.61f4ceb9.png" alt="circle image" id="circle-img"> <p> You can use "linear interpolation" or "lerp" for short. It's a function where you give it two numbers, in this case $x_s$(the $x$ coordinate of the circle's center at start) and $x_e$(the $x$ coordinate of the circle's center at the end). Finally, you give it a number between 0 and 1 such as the time if the animation runs for 1 second. </p> <p> The lerp function is defined like this: $lerp(x_s,x_e,t)=x_e t + x_s (1 - t)$. </p> <p>And here is the circle :</p> <div class="animation"> <iframe class="no-border" src="lerp-circle.html" frameborder="0"> </iframe></div> <p> Now, we can go back to Bresenham's line algorithm. It was developed in 1962. However, the IEEE 754 standard for Floating Point arithmetic was established in 1985. What does this mean ? Well, in 1962, you could only use integers, no decimal numbers. And, this is the genius part of this algorithm, it works while only using integers. The algorithm we used, is using non-decimal numbers, especially "alpha" is a number between 0 and 1 and is used in the lerp function. </p> <p> Bresenham's line algorithm use incremental errors. It's more complex, so, I won't cover this algorithm: the algorithm we used does the same thing and, nowadays, it's very unlikely to not have access to floating point arithmetic. </p> <p> So, here is an interactive animation to "play" with the algorithm we discovered by ourselves: </p> <div class="animation"> <iframe src="./line.html" frameborder="0"> </iframe></div> <p> Here is our journey in the world of Mathematics and Computer Science: </p> <img src="/journey.4a6b8a61.png" alt="Our journey"> <p> This is the end of this blog post. I hope you'll explore more the amazing world of Mathematics and even Computer Science. </p> <p> Thank you for reading. <br> <br> Also, thanks to Grant Sanderson (aka 3Blue1Brown) for motivating me to make this project. <br> <br> All of the animation (interactive or not) were created using a tool I made: <a href="https://manim-web.hugos29.dev/">Manim Web</a> </p> <div class="author"> <h3>Made by Hugo Salou</h3> <div class="spacer"></div> <div class="logos"> <a href="https://github.com/hugo-s29"> <i class="fa-github fab"></i> </a> <a href="https://twitter.com/_hugos29"> <i class="fa-twitter fab"></i> </a> <button data-clipboard-text="Hugos29#0739" id="discord-btn"> <i class="fa-discord fab"></i> </button> </div> </div> <div class="large-break"></div> </div> <script src="/app.e11c3817.js"></script> </body></html>
+        point(x, y)</code></pre>
+        <div class="wrap-right">
+          <p>
+            And so, you've discovered, on your own, Bresenham's line algorithm.
+            Well... almost...
+          </p>
+          <img
+            src="./lerp-question.de65de28.png"
+            alt='Wait a minute, what is "lerp" ?'
+            class="comic"
+          />
+        </div>
+      </div>
+      <div class="large-break"></div>
+      <div class="large-break"></div>
+      <p>
+        To understand what "lerp" is, here is an example. You have a circle and
+        it needs to move between two points.
+      </p>
+      <img
+        src="./lerp-circle.61f4ceb9.png"
+        alt="circle image"
+        id="circle-img"
+      />
+      <p>
+        You can use "linear interpolation" or "lerp" for short. It's a function
+        where you give it two numbers, in this case $x_s$(the $x$ coordinate of
+        the circle's center at start) and $x_e$(the $x$ coordinate of the
+        circle's center at the end). Finally, you give it a number between 0 and
+        1 such as the time if the animation runs for 1 second.
+      </p>
+      <p>
+        The lerp function is defined like this: $lerp(x_s,x_e,t)=x_e t + x_s (1
+        - t)$.
+      </p>
+      <p>And here is the circle :</p>
+      <div class="animation">
+        <iframe class="no-border" src="lerp-circle.html" frameborder="0">
+        </iframe>
+      </div>
+      <p>
+        Now, we can go back to Bresenham's line algorithm. It was developed in
+        1962. However, the IEEE 754 standard for Floating Point arithmetic was
+        established in 1985. What does this mean ? Well, in 1962, you could only
+        use integers, no decimal numbers. And, this is the genius part of this
+        algorithm, it works while only using integers. The algorithm we used, is
+        using non-decimal numbers, especially "alpha" is a number between 0 and
+        1 and is used in the lerp function.
+      </p>
+      <p>
+        Bresenham's line algorithm use incremental errors. It's more complex,
+        so, I won't cover this algorithm: the algorithm we used does the same
+        thing and, nowadays, it's very unlikely to not have access to floating
+        point arithmetic.
+      </p>
+      <p>
+        So, here is an interactive animation to "play" with the algorithm we
+        discovered by ourselves:
+      </p>
+      <div class="animation">
+        <iframe src="./line.html" frameborder="0"> </iframe>
+      </div>
+      <p>
+        Here is our journey in the world of Mathematics and Computer Science:
+      </p>
+      <img src="./journey.4a6b8a61.png" alt="Our journey" />
+      <p>
+        This is the end of this blog post. I hope you'll explore more the
+        amazing world of Mathematics and even Computer Science.
+      </p>
+      <p>
+        Thank you for reading. <br />
+        <br />
+        Also, thanks to Grant Sanderson (aka 3Blue1Brown) for motivating me to
+        make this project. <br />
+        <br />
+        All of the animation (interactive or not) were created using a tool I
+        made: <a href="https://manim-web.hugos29.dev/">Manim Web</a>
+      </p>
+      <div class="author">
+        <h3>Made by Hugo Salou</h3>
+        <div class="spacer"></div>
+        <div class="logos">
+          <a href="https://github.com/hugo-s29">
+            <i class="fa-github fab"></i>
+          </a>
+          <a href="https://twitter.com/_hugos29">
+            <i class="fa-twitter fab"></i>
+          </a>
+          <button data-clipboard-text="Hugos29#0739" id="discord-btn">
+            <i class="fa-discord fab"></i>
+          </button>
+        </div>
+      </div>
+      <div class="large-break"></div>
+    </div>
+    <script src="./app.e11c3817.js"></script>
+  </body>
+</html>
