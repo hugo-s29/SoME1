@@ -41941,85 +41941,7 @@ __webpack_exports__ = __webpack_exports__.default;
 /******/ })()
 ;
 });
-},{"katex":"node_modules/katex/dist/katex.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/highlight.js/styles/atom-one-dark.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/katex/dist/katex.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"./fonts\\KaTeX_AMS-Regular.woff2":[["KaTeX_AMS-Regular.590f7a40.woff2","node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2"],"./fonts\\KaTeX_AMS-Regular.woff":[["KaTeX_AMS-Regular.27e25fa2.woff","node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff"],"./fonts\\KaTeX_AMS-Regular.ttf":[["KaTeX_AMS-Regular.df2e402a.ttf","node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf"],"./fonts\\KaTeX_Caligraphic-Bold.woff2":[["KaTeX_Caligraphic-Bold.bc48536f.woff2","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2"],"./fonts\\KaTeX_Caligraphic-Bold.woff":[["KaTeX_Caligraphic-Bold.d7ceb1f9.woff","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff"],"./fonts\\KaTeX_Caligraphic-Bold.ttf":[["KaTeX_Caligraphic-Bold.58140e1c.ttf","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf"],"./fonts\\KaTeX_Caligraphic-Regular.woff2":[["KaTeX_Caligraphic-Regular.35728534.woff2","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2"],"./fonts\\KaTeX_Caligraphic-Regular.woff":[["KaTeX_Caligraphic-Regular.379ba55d.woff","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff"],"./fonts\\KaTeX_Caligraphic-Regular.ttf":[["KaTeX_Caligraphic-Regular.43e14cb1.ttf","node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf"],"./fonts\\KaTeX_Fraktur-Bold.woff2":[["KaTeX_Fraktur-Bold.1a6fe0b3.woff2","node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2"],"./fonts\\KaTeX_Fraktur-Bold.woff":[["KaTeX_Fraktur-Bold.445f5e94.woff","node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff"],"./fonts\\KaTeX_Fraktur-Bold.ttf":[["KaTeX_Fraktur-Bold.20d7fd30.ttf","node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf"],"./fonts\\KaTeX_Fraktur-Regular.woff2":[["KaTeX_Fraktur-Regular.f97d6bcf.woff2","node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2"],"./fonts\\KaTeX_Fraktur-Regular.woff":[["KaTeX_Fraktur-Regular.0ada8e4c.woff","node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff"],"./fonts\\KaTeX_Fraktur-Regular.ttf":[["KaTeX_Fraktur-Regular.194dec61.ttf","node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf"],"./fonts\\KaTeX_Main-Bold.woff2":[["KaTeX_Main-Bold.ba9ada9f.woff2","node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2"],"node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2"],"./fonts\\KaTeX_Main-Bold.woff":[["KaTeX_Main-Bold.22976910.woff","node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff"],"node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff"],"./fonts\\KaTeX_Main-Bold.ttf":[["KaTeX_Main-Bold.d46878ad.ttf","node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf"],"node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf"],"./fonts\\KaTeX_Main-BoldItalic.woff2":[["KaTeX_Main-BoldItalic.04fa3087.woff2","node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2"],"node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2"],"./fonts\\KaTeX_Main-BoldItalic.woff":[["KaTeX_Main-BoldItalic.607650da.woff","node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff"],"node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff"],"./fonts\\KaTeX_Main-BoldItalic.ttf":[["KaTeX_Main-BoldItalic.314e9a10.ttf","node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf"],"node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf"],"./fonts\\KaTeX_Main-Italic.woff2":[["KaTeX_Main-Italic.9e14c1c1.woff2","node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2"],"node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2"],"./fonts\\KaTeX_Main-Italic.woff":[["KaTeX_Main-Italic.46b5b82b.woff","node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff"],"node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff"],"./fonts\\KaTeX_Main-Italic.ttf":[["KaTeX_Main-Italic.76c3d8ea.ttf","node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf"],"node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf"],"./fonts\\KaTeX_Main-Regular.woff2":[["KaTeX_Main-Regular.452dd42a.woff2","node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2"],"./fonts\\KaTeX_Main-Regular.woff":[["KaTeX_Main-Regular.45d11717.woff","node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff"],"./fonts\\KaTeX_Main-Regular.ttf":[["KaTeX_Main-Regular.e1dec154.ttf","node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf"],"./fonts\\KaTeX_Math-BoldItalic.woff2":[["KaTeX_Math-BoldItalic.fb7dd710.woff2","node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2"],"node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2"],"./fonts\\KaTeX_Math-BoldItalic.woff":[["KaTeX_Math-BoldItalic.2a50180b.woff","node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff"],"node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff"],"./fonts\\KaTeX_Math-BoldItalic.ttf":[["KaTeX_Math-BoldItalic.e482554e.ttf","node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf"],"node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf"],"./fonts\\KaTeX_Math-Italic.woff2":[["KaTeX_Math-Italic.48afc24d.woff2","node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2"],"node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2"],"./fonts\\KaTeX_Math-Italic.woff":[["KaTeX_Math-Italic.a2129d2f.woff","node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff"],"node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff"],"./fonts\\KaTeX_Math-Italic.ttf":[["KaTeX_Math-Italic.3f9cc6b6.ttf","node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf"],"node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf"],"./fonts\\KaTeX_SansSerif-Bold.woff2":[["KaTeX_SansSerif-Bold.86b990ad.woff2","node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2"],"./fonts\\KaTeX_SansSerif-Bold.woff":[["KaTeX_SansSerif-Bold.717ac67f.woff","node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff"],"./fonts\\KaTeX_SansSerif-Bold.ttf":[["KaTeX_SansSerif-Bold.060fdfbd.ttf","node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf"],"./fonts\\KaTeX_SansSerif-Italic.woff2":[["KaTeX_SansSerif-Italic.0796b1e0.woff2","node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2"],"./fonts\\KaTeX_SansSerif-Italic.woff":[["KaTeX_SansSerif-Italic.6351ba6c.woff","node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff"],"./fonts\\KaTeX_SansSerif-Italic.ttf":[["KaTeX_SansSerif-Italic.b9a14603.ttf","node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf"],"./fonts\\KaTeX_SansSerif-Regular.woff2":[["KaTeX_SansSerif-Regular.3f487e12.woff2","node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2"],"./fonts\\KaTeX_SansSerif-Regular.woff":[["KaTeX_SansSerif-Regular.13afaddf.woff","node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff"],"./fonts\\KaTeX_SansSerif-Regular.ttf":[["KaTeX_SansSerif-Regular.5191892e.ttf","node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf"],"./fonts\\KaTeX_Script-Regular.woff2":[["KaTeX_Script-Regular.89ee0070.woff2","node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2"],"./fonts\\KaTeX_Script-Regular.woff":[["KaTeX_Script-Regular.41c8ba97.woff","node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff"],"./fonts\\KaTeX_Script-Regular.ttf":[["KaTeX_Script-Regular.374e792d.ttf","node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf"],"./fonts\\KaTeX_Size1-Regular.woff2":[["KaTeX_Size1-Regular.0f87922f.woff2","node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2"],"./fonts\\KaTeX_Size1-Regular.woff":[["KaTeX_Size1-Regular.3ffa1cf4.woff","node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff"],"./fonts\\KaTeX_Size1-Regular.ttf":[["KaTeX_Size1-Regular.6edba42d.ttf","node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf"],"./fonts\\KaTeX_Size2-Regular.woff2":[["KaTeX_Size2-Regular.5180f285.woff2","node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2"],"./fonts\\KaTeX_Size2-Regular.woff":[["KaTeX_Size2-Regular.413d99b3.woff","node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff"],"./fonts\\KaTeX_Size2-Regular.ttf":[["KaTeX_Size2-Regular.6aff6a9b.ttf","node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf"],"./fonts\\KaTeX_Size3-Regular.woff2":[["KaTeX_Size3-Regular.10a64822.woff2","node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff2"],"./fonts\\KaTeX_Size3-Regular.woff":[["KaTeX_Size3-Regular.88252b9b.woff","node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff"],"./fonts\\KaTeX_Size3-Regular.ttf":[["KaTeX_Size3-Regular.f65b0abc.ttf","node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf"],"./fonts\\KaTeX_Size4-Regular.woff2":[["KaTeX_Size4-Regular.ddb9f263.woff2","node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2"],"./fonts\\KaTeX_Size4-Regular.woff":[["KaTeX_Size4-Regular.f9be2d9f.woff","node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff"],"./fonts\\KaTeX_Size4-Regular.ttf":[["KaTeX_Size4-Regular.92cbdf26.ttf","node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf"],"./fonts\\KaTeX_Typewriter-Regular.woff2":[["KaTeX_Typewriter-Regular.62e9058d.woff2","node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"],"node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"],"./fonts\\KaTeX_Typewriter-Regular.woff":[["KaTeX_Typewriter-Regular.3b60890b.woff","node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff"],"node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff"],"./fonts\\KaTeX_Typewriter-Regular.ttf":[["KaTeX_Typewriter-Regular.e334f444.ttf","node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf"],"node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/@fortawesome/fontawesome-free/js/all.js":[function(require,module,exports) {
+},{"katex":"node_modules/katex/dist/katex.js"}],"node_modules/@fortawesome/fontawesome-free/js/all.js":[function(require,module,exports) {
 var global = arguments[3];
 function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function (obj) { return typeof obj; }; } else { _typeof2 = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
@@ -47510,16 +47432,12 @@ auto_render_1.default(document.body, {
   }]
 });
 
-require("highlight.js/styles/atom-one-dark.css");
-
-require("katex/dist/katex.css");
-
 require("@fortawesome/fontawesome-free/js/all");
 
 var clipboard_1 = __importDefault(require("clipboard"));
 
 new clipboard_1.default('#discord-btn');
-},{"highlight.js":"node_modules/highlight.js/lib/index.js","katex/dist/contrib/auto-render":"node_modules/katex/dist/contrib/auto-render.js","highlight.js/styles/atom-one-dark.css":"node_modules/highlight.js/styles/atom-one-dark.css","katex/dist/katex.css":"node_modules/katex/dist/katex.css","@fortawesome/fontawesome-free/js/all":"node_modules/@fortawesome/fontawesome-free/js/all.js","clipboard":"node_modules/clipboard/dist/clipboard.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"highlight.js":"node_modules/highlight.js/lib/index.js","katex/dist/contrib/auto-render":"node_modules/katex/dist/contrib/auto-render.js","@fortawesome/fontawesome-free/js/all":"node_modules/@fortawesome/fontawesome-free/js/all.js","clipboard":"node_modules/clipboard/dist/clipboard.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -47547,7 +47465,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62448" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50467" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

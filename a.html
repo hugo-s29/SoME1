@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.f00a4cf5.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Sahitya:wght@400;700&family=MonteCarlo&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/atom-one-dark.1940feb6.css" />
+    <link rel="stylesheet" href="/katex.4b1ebe36.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        A journey in the world of the Mathematics used in Computer Science.
+      </h1>
+      <p>
+        Mathematics is used, a <b>lot</b> in Computer Science. In many fields
+        like Computer Graphics, Data Science, Machine Learning, you'll need to
+        use lots of Math. In this blog post, I'll mostly focus on Computer
+        Graphics, which has many applications like Data Visualization, Video
+        Games, Animations...
+      </p>
+      <h2>Computers have limitations</h2>
+      <p>
+        When working with a computer, you have a limited amount of memory. You
+        can't store numbers with an infinite number of digits: for example, a
+        computer thinks that $\pi$ has only 15 digits
+        <span class="no-brk">($3.141592653589793$)</span>. This limited amount
+        of precision can cause some problems with arithmetic like $0.1+0.2 \neq
+        0.3$
+      </p>
+      <img
+        src="/intro.95db4182.png"
+        alt="Wait! So, what is 0.1 + 0.2 ?"
+        class="comic"
+        id="comic-add"
+      />
+      <div class="large-break"></div>
+      <p class="no-mg-bt">If you use Python, you can see:</p>
+      <pre
+        class="floating no-mg-tp sketched"
+        id="python-add"
+      ><code class="language-python">>>> 0.1 + 0.2
+0.30000000000000004</code></pre>
+      <p>
+        It's close, but it's not $0.3$. This isn't a problem with Python, it's a
+        problem with every programming language that uses Floating Point
+        arithmetic. We, as humans, have a similar problem: try to compute
+        $\frac13+\frac23$ without using fractions' rules. If you use 10 digits
+        to represent the two numbers, you have $0.3333333333 +
+        0.6666666666=0.9999999999$. But it's not <i>precisely</i> $1$.
+      </p>
+      <p>
+        In computer graphics, there is a similar problem. You have a screen with
+        a limited amount of pixels.
+      </p>
+      <img src="/screen.bcae8f2f.png" alt="screen image" id="screen" />
+      <img
+        src="/problem.8f2448f2.png"
+        alt="Why is it a problem ?"
+        class="comic"
+        id="problem"
+      />
+      <p>
+        In Computer Graphics, at some point, you need to draw lines. With
+        vertical or horizontal lines, there are no problem: you set a row or a
+        column of pixels to the specified color. However, with diagonal lines,
+        it's trickier. You could do something like this:
+      </p>
+      <img src="/line.c888b465.png" alt="rasterized line" />
+      <p>
+        This doesn't seem to be a line anymore, but it's as close as we can get.
+        There isn't enough pixels to have a smooth line. <br />
+        This is why, when you graph $y = \sin(x)$ on Desmos, you get a smooth
+        curve. Whereas, on your calculator, it might have a more pixelated look.
+      </p>
+      <div class="compare">
+        <img src="/desmos-graph.813eb494.png" alt="Desmos Graph" />
+        <img
+          src="/calculator-graph.09c6b454.png"
+          alt="Graph on calculator"
+          class="pixelated"
+        />
+      </div>
+      <p>
+        So, how do you draw lines on screen with discrete pixels ? But first, we
+        need to know how to draw points.
+      </p>
+      <h2>How to draw points on a screen ?</h2>
+      <p>
+        Usually, the screen uses a coordinate system where the origin is the top
+        left point with the x-axis pointing to the right and the y-axis pointing
+        down. <br />
+        This coordinate system doesn't have the same orientation as what you're
+        used to with function graphs with the y-axis pointing up.
+      </p>
+      <img src="/graph.c2ce8345.png" alt="graph" />
+      <p>
+        If we need to draw a point at $(x,y)$ with $x$ and $y$ integers, it's
+        easy. We just set the value of the pixel on the $y$th row and the $x$th
+        column to the desired color.
+      </p>
+      <p>
+        If we want to plot points with non-integer coordinates (it'll be useful
+        for later), it's also pretty easy. We just round the $x$ and $y$
+        coordinates to the nearest integer.
+      </p>
+      <p>How do we implement it in code ?</p>
+      <pre
+        class="sketched"
+      ><code class="language-python"># we will use 0 to represent black and 1 white
+screen = [ [ 1 for x in range(height) ] for y in range(width) ]
+
+def point(x, y):
+    # we assume x and y are floats or ints
+
+    if x &lt; 0 or x &gt; width:
+      return # outside of the screen, we do nothing
+    if y &lt; 0 or y &gt; height:
+      return # outside of the screen, we do nothing
+
+    if type(x) == float:
+      x = round(x)
+    if type(y) == float:
+      y = round(y)
+
+    # so, x and y are now both integers
+    screen[x][y] = 0</code></pre>
+      <p>
+        Here is an interactive demo where you can drag the red dot and see the
+        result on the pixel screen.
+      </p>
+      <div class="animation sketched2">
+        <iframe src="/interactive\build\point.html" frameborder="0"> </iframe>
+      </div>
+      <p class="note">
+        The interactive part of these animations doesn't fully work on mobile
+        yet.
+      </p>
+      <p>Now we can try drawing line.</p>
+      <h2>How to draw lines on a screen ?</h2>
+      <p>
+        Here, the most important step is sampling. We need to get points on the
+        line to plot them using the point function created earlier. <br />
+        The problem is, we can sample too many points which could result in
+        lot's of unnecessary computations (<b>oversampling</b>); or, we could
+        sample less points but we could skip some pixels and have a line with
+        "holes" (<b>undersampling</b>).
+      </p>
+      <div class="compare">
+        <img src="/undersampling.37830496.png" alt="undersampling" />
+        <img src="/oversampling.0fff4ab3.png" alt="oversampling" />
+      </div>
+      <p>
+        In this interactive animation, you can drag the two red dots and see the
+        rendered line on the pixel screen. You can also adjust the number of
+        sample points.
+      </p>
+      <div class="animation sketched2">
+        <iframe src="/interactive\build\sample.html" frameborder="0"> </iframe>
+      </div>
+      <p class="note">
+        The interactive part of these animations doesn't fully work on mobile
+        yet.
+      </p>
+      <p>
+        How do we solve this problem ? <br />
+        How can we know the minimum number of samples which doesn't skip pixels
+        ?
+      </p>
+      <br />
+      <div class="compare">
+        <p class="side">
+          We could sample one point for every column like this:
+        </p>
+        <img
+          src="/samples.c9311e4e.png"
+          alt="right sampling"
+          class="sampling-img"
+        />
+      </div>
+      <div class="large-break"></div>
+      <div class="compare">
+        <div class="side">
+          <p>But, it wouldn't work for every line:</p>
+          <p>
+            If a line is very steep, between two columns, the gap may be more
+            than 1 pixel.
+          </p>
+        </div>
+        <img
+          src="/samples2.9809ab6f.png"
+          alt="undersampling, again"
+          class="sampling-img"
+        />
+      </div>
+      <div class="large-break"></div>
+      <p>
+        If you take the time to think about it, this method only works when the
+        line has an angle less than 45° with the x-axis. Otherwise, when you go
+        to the next column, the point would be higher than the last by more than
+        1 pixel.
+      </p>
+      <p>
+        We can know if the angle and the x-axis is more than 45° when $\lvert
+        \Delta y \rvert > \lvert \Delta x \rvert$, as shown in the drawing
+        bellow.
+      </p>
+      <img
+        src="/samples2-explaination.443985e5.png"
+        alt="explanation undersampling"
+        class="sampling-img-large"
+      />
+      <p>
+        So, if the line is too steep, we can sample every row instead of every
+        column.
+      </p>
+      <div class="center">
+        <img
+          src="/problem-solved.16e8899f.png"
+          alt="problem solved !"
+          class="comic"
+          id="comic-solved"
+        />
+      </div>
+      <p>How is it implemented in code ?</p>
+      <div class="compare">
+        <pre
+          class="sketched"
+        ><code class="language-python">def line(ax, ay, bx, by):
+    dx = ax - bx
+    dy = ay - by
+
+    point(ax, ay)
+    point(bx, by)
+
+    if abs(dx) >= abs(dy):
+        # sample with the columns
+        samples = round(abs(dx))
+    else:
+        # sample with the rows
+        samples = round(abs(dy))
+
+    for i in range(0, samples):
+        alpha = i / samples
+
+        x = lerp(ax, bx, alpha)
+        y = lerp(ay, by, alpha)
+
+        point(x, y)</code></pre>
+        <div class="wrap-right">
+          <p>
+            And so, you've discovered, on your own, Bresenham's line algorithm.
+            Well... almost
+          </p>
+          <img
+            src="/lerp-question.de65de28.png"
+            alt='Wait a minute, what is "lerp" ?'
+            class="comic"
+            id="lerp-comic"
+          />
+        </div>
+      </div>
+      <div class="large-break"></div>
+      <h2>Linear interpolation</h2>
+      <p>
+        To understand what "lerp" is, here is an example. You have a ball and it
+        needs to move between two points like this:
+      </p>
+      <img src="/lerp-circle.61f4ceb9.png" alt="circle image" id="circle-img" />
+      <p>
+        You only have two states of the ball, you don't have the information
+        between those states.
+      </p>
+      <p>
+        To get this information, you can use "linear interpolation" or "lerp"
+        for short. It allows you to transform smoothly from the first state to
+        the second. This is a function where you give it 3 numbers, $x_s$ (start
+        state), $x_e$ (end state), and a number between 0 and 1 commonly named
+        $t$ or $\alpha$. The $t$ value can be imagined as a "percentage" of the
+        transformation.
+      </p>
+      <p>
+        Also, the lerp function is defined like this: $lerp(x_s,x_e,t)=x_e t +
+        x_s (1 - t)$.
+      </p>
+      <p>
+        Here, you can use $x$ and $y$ as the coordinates of the center of the
+        ball, and $r$,$g$, and $b$ to represent the
+        <span class="red">red</span>, <span class="green">green</span>,
+        <span class="blue">blue</span> components of the color. So you would
+        have: <br />
+        $$ x(t) = lerp(x_0, x_1, t)\\y(t) = lerp(y_0, y_1, t)\\ r(t) = lerp(r_0,
+        r_1, t)\\ g(t) = lerp(g_0, g_1, t)\\ b(t) = lerp(b_0, b_1, t)\\ $$
+      </p>
+      <p>
+        If we apply these rules and make $t$ goes from $0$ to $1$ and go back to
+        $0$ (repeating indefinitely) we get this:
+      </p>
+      <div class="animation">
+        <iframe
+          class="no-border"
+          src="/interactive\build\lerp-circle.html"
+          frameborder="0"
+        >
+        </iframe>
+      </div>
+      <p>
+        Now, we can go back to Bresenham's line algorithm. Why isn't our
+        algorithm the same as Bresenham's ? It was developed in 1962, and at
+        this time, you could only use integers with a computer. This is the
+        amazing part of Bresenham's algorithm, it works while only using
+        integers. And our algorithm is using decimal numbers. Bresenham's line
+        algorithm use incremental errors. I won't cover this algorithm since,
+        nowadays, most of the time we have access to Floating Point Arithmetic.
+        Also, our algorithm gives back the same results and it is easier to
+        understand.
+      </p>
+      <p>
+        So, here is an interactive animation to "play" with the algorithm we
+        discovered:
+      </p>
+      <div class="animation">
+        <iframe src="/interactive\build\line.html" frameborder="0"> </iframe>
+      </div>
+      <p class="note">
+        The interactive part of these animations doesn't fully work on mobile
+        yet.
+      </p>
+      <div class="large-break"></div>
+      <img src="/journey.4a6b8a61.png" alt="Our journey" />
+      <p class="no-mg-bt">
+        This is the end of this blog post. I hope you'll explore more the
+        amazing world of Mathematics and Computer Science. <br />
+        <br />
+        Interesting topics to explore:
+      </p>
+      <ul>
+        <li>Rasterization</li>
+        <li>3D shading</li>
+        <li>Bezier curves</li>
+        <li>Anti-aliasing</li>
+      </ul>
+      <p>
+        Thank you for reading. <br />
+        <br />
+        Thanks to Grant Sanderson (aka 3Blue1Brown) for inspiring me to make
+        this project. <br />
+        <br />
+        All of the animation (interactive or not) were created using an
+        open-source tool I made:
+        <a href="https://manim-web.hugos29.dev/">Manim Web</a>
+      </p>
+      <div class="author">
+        <h3>Made by Hugo Salou</h3>
+        <div class="spacer"></div>
+        <div class="logos">
+          <a href="https://github.com/hugo-s29">
+            <i class="fa-github fab"></i>
+          </a>
+          <a href="https://twitter.com/_hugos29">
+            <i class="fa-twitter fab"></i>
+          </a>
+          <button
+            data-clipboard-text="Hugos29#0739"
+            id="discord-btn"
+            class="tooltip"
+            data-tooltip="Copy to clipboard"
+          >
+            <i class="fa-discord fab"></i>
+          </button>
+          <a href="mailto:y.hugo.s29@gmail.com">
+            <i class="fa-envelope fas"></i>
+          </a>
+        </div>
+      </div>
+      <div class="large-break"></div>
+    </div>
+    <script src="/app.cc9c86c8.js"></script>
+  </body>
+</html>
